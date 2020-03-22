@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _3ld
 {
-    public class Studentas
+    public class Studentas 
     {
         public string Name { get; set; }
         public string Pavarde { get; set; }
@@ -85,6 +85,14 @@ namespace _3ld
             }
             void isvedimas(List<Studentas> sss)
             {
+                sss.Sort(delegate (Studentas x, Studentas y)
+                {
+                    if (x.Name == null && y.Name == null) return 0;
+                    else if (x.Name == null) return -1;
+                    else if (y.Name == null) return 1;
+                    else return x.Name.CompareTo(y.Name);
+                });
+               
                 Console.WriteLine("Vardas              Pavarde             Vidurkis  ");
                 Console.WriteLine("--------------------------------------------------");
                 foreach (Studentas aPart in sss)
