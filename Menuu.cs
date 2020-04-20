@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace _3ld
 {
-   public class Menuu
+    public class Menuu
     {
         public static void meniu()
         {
@@ -21,7 +21,7 @@ namespace _3ld
                 try
                 {
                     System.IO.StreamReader file =
-                new System.IO.StreamReader(@"C:\Users\AIstutis\Desktop\kursiokai.txt");
+                new System.IO.StreamReader(@"C:\Users\AIstutis\source\repos\3ld\3ld\bin\Debug\netcoreapp3.1\sugeneruotas1000.txt");
 
                     file.ReadLine();
                     while ((line = file.ReadLine()) != null)
@@ -36,6 +36,7 @@ namespace _3ld
                             temp1 = temp1 + 1;
                         }
                         temp = temp / temp1 * 0.3 + int.Parse(values[egzas]) * 0.7;
+                        temp = (double)System.Math.Round(temp, 2);
                         studentai.Add(new Studentas() { Name = values[0], Pavarde = values[1], Vidurkis = temp });
 
                     }
@@ -86,6 +87,7 @@ namespace _3ld
         }
         public static void isvedimas(List<Studentas> sss)
         {
+
             sss.Sort(delegate (Studentas x, Studentas y)
             {
                 if (x.Name == null && y.Name == null) return 0;
@@ -94,13 +96,70 @@ namespace _3ld
                 else return x.Name.CompareTo(y.Name);
             });
 
-            Console.WriteLine("Vardas              Pavarde             Vidurkis  ");
+            Console.WriteLine("Vardas              Pavarde             Galutinis(Vid.) ");
             Console.WriteLine("--------------------------------------------------");
             foreach (Studentas aPart in sss)
             {
                 Console.WriteLine(aPart);
             }
             Console.WriteLine("--------------------------------------------------");
+        }
+        public static void surusiavimas(String pavadinimas)
+        {
+            List<Studentas> vargsiukai = new List<Studentas>();
+            List<Studentas> kietekai = new List<Studentas>();
+            System.IO.StreamWriter varg = new System.IO.StreamWriter($"vargsiukai.txt");
+            System.IO.StreamWriter kiet = new System.IO.StreamWriter($"kietekai.txt");
+                string line;
+            try
+            {
+                System.IO.StreamReader file =
+            new System.IO.StreamReader(pavadinimas);
+
+                file.ReadLine();
+                while ((line = file.ReadLine()) != null)
+                {
+                    string[] values = line.Split(new char[] { }, StringSplitOptions.RemoveEmptyEntries);
+                    int egzas = values.Count() - 1;
+                    double temp = 0;
+                    int temp1 = 0;
+                    for (int i = 2; i < values.Count() - 1; i++)
+                    {
+                        temp = temp + int.Parse(values[i]);
+                        temp1 = temp1 + 1;
+                    }
+                    temp = temp / temp1 * 0.3 + int.Parse(values[egzas]) * 0.7;
+                    temp = (double)System.Math.Round(temp, 2);
+                    if (temp >= 5)
+                    {
+                        kietekai.Add(new Studentas() { Name = values[0], Pavarde = values[1], Vidurkis = temp });
+                    }
+                    if (temp < 5)
+                    {
+                        vargsiukai.Add(new Studentas() { Name = values[0], Pavarde = values[1], Vidurkis = temp });
+                    }
+                }
+                
+            }
+            catch (FileNotFoundException)
+
+            {
+
+                Console.WriteLine("Failas tokiu pavadinimu neegzistuoja");
+
+            }
+            isvedimasfailas(kietekai, kiet);
+            isvedimasfailas(vargsiukai, varg);
+        }
+        public static void isvedimasfailas(List<Studentas> sss, System.IO.StreamWriter file)
+        {
+            file.WriteLine("Vardas              Pavarde             Galutinis(Vid.) ");
+            file.WriteLine("--------------------------------------------------");
+            foreach (Studentas aPart in sss)
+            {
+                file.WriteLine(aPart);
+            }
+            file.WriteLine("--------------------------------------------------");
         }
     }
 }
