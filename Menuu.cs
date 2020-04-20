@@ -149,7 +149,27 @@ namespace _3ld
 
             }
             isvedimasfailas(kietekai, kiet);
-            isvedimasfailas(vargsiukai, varg);
+           isvedimasfailas(vargsiukai, varg);
+        }
+        public static void isvedimasfailasQ(Queue<Studentas> sss, System.IO.StreamWriter file)
+        {
+            file.WriteLine("Vardas              Pavarde             Galutinis(Vid.) ");
+            file.WriteLine("--------------------------------------------------");
+            foreach (Studentas aPart in sss)
+            {
+                file.WriteLine(aPart);
+            }
+            file.WriteLine("--------------------------------------------------");
+        }
+        public static void isvedimasfailasL(LinkedList<Studentas> sss, System.IO.StreamWriter file)
+        {
+            file.WriteLine("Vardas              Pavarde             Galutinis(Vid.) ");
+            file.WriteLine("--------------------------------------------------");
+            foreach (Studentas aPart in sss)
+            {
+                file.WriteLine(aPart);
+            }
+            file.WriteLine("--------------------------------------------------");
         }
         public static void isvedimasfailas(List<Studentas> sss, System.IO.StreamWriter file)
         {
@@ -160,6 +180,103 @@ namespace _3ld
                 file.WriteLine(aPart);
             }
             file.WriteLine("--------------------------------------------------");
+        }
+        public static void surusiavimas1(String pavadinimas)
+        {
+            LinkedList<Studentas> vargsiukai = new LinkedList<Studentas>();
+            LinkedList<Studentas> kietekai = new LinkedList<Studentas>();
+            System.IO.StreamWriter varg = new System.IO.StreamWriter($"vargsiukaiL.txt");
+            System.IO.StreamWriter kiet = new System.IO.StreamWriter($"kietekaiL.txt");
+            string line;
+            try
+            {
+                System.IO.StreamReader file =
+            new System.IO.StreamReader(pavadinimas);
+
+                file.ReadLine();
+                while ((line = file.ReadLine()) != null)
+                {
+                    string[] values = line.Split(new char[] { }, StringSplitOptions.RemoveEmptyEntries);
+                    int egzas = values.Count() - 1;
+                    double temp = 0;
+                    int temp1 = 0;
+                    for (int i = 2; i < values.Count() - 1; i++)
+                    {
+                        temp = temp + int.Parse(values[i]);
+                        temp1 = temp1 + 1;
+                    }
+                    temp = temp / temp1 * 0.3 + int.Parse(values[egzas]) * 0.7;
+                    temp = (double)System.Math.Round(temp, 2);
+                    if (temp >= 5)
+                    {
+                        kietekai.AddLast(new Studentas() { Name = values[0], Pavarde = values[1], Vidurkis = temp });
+
+                    }
+                    if (temp < 5)
+                    {
+                        vargsiukai.AddLast(new Studentas() { Name = values[0], Pavarde = values[1], Vidurkis = temp });
+
+                    }
+                }
+            }
+            catch (FileNotFoundException)
+
+            {
+
+                Console.WriteLine("Failas tokiu pavadinimu neegzistuoja");
+
+            }
+           isvedimasfailasL(kietekai, kiet);
+            isvedimasfailasL(vargsiukai, varg);
+        }
+        public static void surusiavimas2(String pavadinimas)
+        {
+           Queue<Studentas> vargsiukai = new Queue<Studentas>();
+            Queue<Studentas> kietekai = new Queue<Studentas>();
+            System.IO.StreamWriter varg = new System.IO.StreamWriter($"vargsiukaiQ.txt");
+            System.IO.StreamWriter kiet = new System.IO.StreamWriter($"kietekaiQ.txt");
+            string line;
+            try
+            {
+                System.IO.StreamReader file =
+            new System.IO.StreamReader(pavadinimas);
+
+                file.ReadLine();
+                while ((line = file.ReadLine()) != null)
+                {
+                    string[] values = line.Split(new char[] { }, StringSplitOptions.RemoveEmptyEntries);
+                    int egzas = values.Count() - 1;
+                    double temp = 0;
+                    int temp1 = 0;
+                    for (int i = 2; i < values.Count() - 1; i++)
+                    {
+                        temp = temp + int.Parse(values[i]);
+                        temp1 = temp1 + 1;
+                    }
+                    temp = temp / temp1 * 0.3 + int.Parse(values[egzas]) * 0.7;
+                    temp = (double)System.Math.Round(temp, 2);
+                    if (temp >= 5)
+                    {
+                        kietekai.Enqueue(new Studentas() { Name = values[0], Pavarde = values[1], Vidurkis = temp });
+                        //kietekai.Add(new Studentas() { Name = values[0], Pavarde = values[1], Vidurkis = temp });
+                    }
+                    if (temp < 5)
+                    {
+                        vargsiukai.Enqueue(new Studentas() { Name = values[0], Pavarde = values[1], Vidurkis = temp });
+                        // vargsiukai.Add(new Studentas() { Name = values[0], Pavarde = values[1], Vidurkis = temp });
+                    }
+                }
+
+            }
+            catch (FileNotFoundException)
+
+            {
+
+                Console.WriteLine("Failas tokiu pavadinimu neegzistuoja");
+
+            }
+            isvedimasfailasQ(kietekai, kiet);
+            isvedimasfailasQ(vargsiukai, varg);
         }
     }
 }

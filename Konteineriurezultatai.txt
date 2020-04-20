@@ -1,0 +1,3 @@
+Queue uztruko 0,4610696
+ Linked List  uztruko 0,5398803
+ List  uztruko 0,58628
