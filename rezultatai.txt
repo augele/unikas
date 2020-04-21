@@ -1,0 +1,9 @@
+ 1 strategija List naudojant remove all metoda uztruko 12,8227
+ 1 strategija List naudojant cikla for uztruko 60,0399
+ 2 strategija List sukuriant vargsiukus ir paliekant pagrindiniame konteineryje tik kietekus uztruko 12,9208
+ 1 strategija Linked list pridedant i prieki uztruko 31,232400000000002
+ 1 strategija Linked list pridedant i gala uztruko 39,9925
+ 1 strategija Linkedlist for ciklu popinant is steko itemus uztruko 86,696
+ 1 strategija  Queue naudojant enqueue uztruko 21,7297
+ 1 strategija  Queue naudojant dequeue uztruko 38,495799999999996
+
